@@ -8,7 +8,7 @@ import time
 
 username = input('Enter username : ')
 password = input('Enter password : ')
-login_times = []
+login_times = [time.ctime()]
 url = 'http://nmcheck.gnome.org'
 while True:
     print('---------------------------------- Running IITJ Wifi/LAN Automatic Authentication -------------------------------------------')
@@ -42,6 +42,9 @@ while True:
             print('Failed Login')
         else:
             login_times.append(time.ctime())
+            with open('login_times.txt', 'w') as f:
+                for i in login_times:
+                    f.write(i+'\n')
             print(f'Successfully logged in as {username}')
 
     elif status == 1:
@@ -53,7 +56,8 @@ while True:
     else:
         print('Connected!')
         print(f'Logged in as : {username}')
-        print(f'Last logged in at {login_times[-1]}')
+        print(f'Last login: {login_times[-1]}')
+        
     
     time.sleep(10)
     os.system('clear')
